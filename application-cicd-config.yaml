@@ -37,6 +37,11 @@ spec:
  destination:
    namespace: aaa-application-test
    server: 'https://kubernetes.default.svc'
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+      selfHeal: true
  project: default
  source:
    path: app/test
