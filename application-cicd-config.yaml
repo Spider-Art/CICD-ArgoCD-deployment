@@ -1,23 +1,27 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
- name: www-page-prod
- namespace: aaa-application-cicd
+  name: www-page-prod
+  namespace: aaa-application-cicd
 spec:
- destination:
-   namespace: aaa-application-prod
-   server: 'https://kubernetes.default.svc'
- project: default
- source:
-   path: app/prod
-   repoURL: 'https://github.com/Spider-Art/CICD_app_deployment.git'
-   targetRevision: HEAD
+  destination:
+    namespace: aaa-application-prod
+    server: 'https://kubernetes.default.svc'
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  project: default
+  source:
+    path: app/prod
+    repoURL: 'https://github.com/Spider-Art/CICD_app_deployment.git'
+    targetRevision: HEAD
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
- name: www-page-stage
- namespace: aaa-application-cicd
+  name: www-page-stage
+  namespace: aaa-application-cicd
 spec:
   destination:
     namespace: aaa-application-stage
