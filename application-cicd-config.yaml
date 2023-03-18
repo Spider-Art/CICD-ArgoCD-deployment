@@ -19,34 +19,37 @@ metadata:
  name: www-page-stage
  namespace: aaa-application-cicd
 spec:
- destination:
-   namespace: aaa-application-stage
-   server: 'https://kubernetes.default.svc'
- project: default
- source:
-   path: app/stage
-   repoURL: 'https://github.com/Spider-Art/CICD_app_deployment.git'
-   targetRevision: HEAD
+  destination:
+    namespace: aaa-application-stage
+    server: 'https://kubernetes.default.svc'
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  project: default
+  source:
+    path: app/stage
+    repoURL: 'https://github.com/Spider-Art/CICD_app_deployment.git'
+    targetRevision: HEAD
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
- name: www-page-test
- namespace: aaa-application-cicd
+  name: www-page-test
+  namespace: aaa-application-cicd
 spec:
- destination:
-   namespace: aaa-application-test
-   server: 'https://kubernetes.default.svc'
+  destination:
+    namespace: aaa-application-test
+    server: 'https://kubernetes.default.svc'
   syncPolicy:
     automated:
       prune: true
-      allowEmpty: true
       selfHeal: true
- project: default
- source:
-   path: app/test
-   repoURL: 'https://github.com/Spider-Art/CICD_app_deployment.git'
-   targetRevision: HEAD
+  project: default
+  source:
+    path: app/test
+    repoURL: 'https://github.com/Spider-Art/CICD_app_deployment.git'
+    targetRevision: HEAD
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
