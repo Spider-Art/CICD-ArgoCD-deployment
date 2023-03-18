@@ -1,0 +1,57 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+ name: www-page-prod
+ namespace: aaa-application-cicd
+spec:
+ destination:
+   namespace: aaa-application-prod
+   server: 'https://kubernetes.default.svc'
+ project: default
+ source:
+   path: app/prod
+   repoURL: 'https://github.com/Spider-Art/CICD_app_deployment.git'
+   targetRevision: HEAD
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+ name: www-page-stage
+ namespace: aaa-application-cicd
+spec:
+ destination:
+   namespace: aaa-application-stage
+   server: 'https://kubernetes.default.svc'
+ project: default
+ source:
+   path: app/stage
+   repoURL: 'https://github.com/Spider-Art/CICD_app_deployment.git'
+   targetRevision: HEAD
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+ name: www-page-test
+ namespace: aaa-application-cicd
+spec:
+ destination:
+   namespace: aaa-application-test
+   server: 'https://kubernetes.default.svc'
+ project: default
+ source:
+   path: app/test
+   repoURL: 'https://github.com/Spider-Art/CICD_app_deployment.git'
+   targetRevision: HEAD
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: app-application-pipeline
+  namespace: aaa-application-pipeline
+subjects:
+  - kind: ServiceAccount
+    name: openshift-gitops-argocd-application-controller
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
