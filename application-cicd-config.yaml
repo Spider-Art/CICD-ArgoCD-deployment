@@ -1,4 +1,4 @@
-apiVersion: argoproj.io/v1alpha1
+apiVersion: argoproj.io/v1beta1
 kind: Application
 metadata:
   name: www-page-prod
@@ -17,7 +17,7 @@ spec:
     repoURL: 'https://github.com/Spider-Art/CICD_app_deployment.git'
     targetRevision: HEAD
 ---
-apiVersion: argoproj.io/v1alpha1
+apiVersion: argoproj.io/v1beta1
 kind: Application
 metadata:
   name: www-page-stage
@@ -36,7 +36,7 @@ spec:
     repoURL: 'https://github.com/Spider-Art/CICD_app_deployment.git'
     targetRevision: HEAD
 ---
-apiVersion: argoproj.io/v1alpha1
+apiVersion: argoproj.io/v1beta1
 kind: Application
 metadata:
   name: www-page-test
